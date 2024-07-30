@@ -3,333 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Online Calculator</title>
 </head>
-<div id="js_timer">
-    <button id="timer" style="background-color: lime; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-        CASH: 0
-    </button>
-	<div>
-	</div>
-</div>
-<div>
-    <button id="rate"style="background-color: lime; font-family: Verdana, Geneva, Tahoma, sans-serif;">RATE: 0PS</button>
-</div>
-<div><button onclick="am1()" id="am" style="background-color: lime;">Producer Cost $10k, used x1</button></div>
-<h1>Tier 1</h1>
-<div><button onclick="a10()" id="a11" style="background-color: green; color: chocolate;">Tier 1 Producter - Adds $1 up to $10 Cost $50, used x0</button></div>
-<div><button onclick="b10()" id="b11" style="background-color: green; color: chocolate;">Tier 1 Looper - Product by 1.2 up to $250 Cost $1k, used x0</button></div>
-<div><button onclick="c10()" id="c11" style="background-color: green; color: chocolate;">Tier 1 Upgrader - Product by 3 up to 3 times Cost $50k, used x0</button></div>
+<style>
+    *{
+    margin:0;
+    padding:0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+}
+.canvas{
+    background-color: white;
+}
+.container{
+    width:100%;
+    height:100vh;
+    background:rgb(179, 217, 255);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.calcbuttons{
+    background: rgb(0, 125, 227);
+    padding:10px;
+    border-radius:10px;
+}
+.GO{
+    border:0;
+    outline:0;
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    box-shadow: -8px -8px 15px rgba(255,255,255,0.1),5px 5px 15px rgba(0,0,0,0.2);
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color:cyan;
+    cursor:pointer;
+}
+.calculator form input{
+    border:0;
+    outline:0;
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    box-shadow: -8px -8px 15px rgba(255,255,255,0.1),5px 5px 15px rgba(0,0,0,0.2);
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color:cyan;
+    cursor:pointer;
+}
+form .display input{
+    text-align: right;
+    flex:1;
+    font-size:40px;
+    font-family: sans-serif;
+    background: white;
+    padding:10px;
+    border-radius:0px;
+    width:340px;
+    height:100px;
+    color:black;
+    box-shadow: none;
+
+}
+form .display2 input{
+    text-align: right;
+    flex:1;
+    font-size:10px;
+    background: white;
+    padding:10px;
+    border-radius:0px;
+    width:340px;
+    color:black;
+    box-shadow: none;
+
+}
+.calculator{
+    background: rgb(0, 125, 227);
+    border-radius:10px;
+    padding:10px;
+}
+.h{
+    color: cyan;
+    font-family: Arial, Helvetica, sans-serif;
+}
+</style>
 <script>
-    var timer;
-    var ele=document.getElementById('timer');
-	var score=0;
-	var dt=0;
-    var a=0;
-    var b=0;
-    var c=0;
-    function am1(){
-        if(cs>=1e2*Math.pow(100,r)){
-            r=r+1;
-        am.innerHTML="Producer Cost $"+pow10(2*r+2)+", used x"+r
-        cs=cs-1e2*Math.pow(100,r)
+    var π=Math.PI
+    var e=Math.E
+    var h=1e7
+    function cos(x){
+        return Math.cos(x);
+    }
+    function pow(x,y){
+        return Math.pow(x,y);
+    }
+    function log(x,y){
+        return Math.log(y)/Math.log(x);
+    }
+    function sin(x){
+        return Math.sin(x);
+    }
+    function fact(x){
+      var s=1
+      for(i=1;i<=x;i++){
+        s=s*i
+      }
+    return s
+    }
+    function floor(x){
+        return Math.floor(x);
+    }
+    function round(x){
+        return Math.round(x);
+    }
+    function ceil(x){
+        return Math.ceil(x);
+    }
+    function tan(x){
+        return Math.tan(x);
+    }
+    function sec(x){
+        return 1/Math.cos(x);
+    }
+    function csc(x){
+        return 1/Math.sin(x);
+    }
+    function cot(x){
+        return 1/Math.tan(x);
+    }
+    function acos(x){
+        return Math.acos(x);
+    }
+    function asin(x){
+        return Math.asin(x);
+    }
+    function atan(x){
+        return Math.atan(x);
+    }
+    function asec(x){
+        return Math.acos(1/x);
+    }
+    function acsc(x){
+        return Math.asin(1/x);
+    }
+    function acot(x){
+        return Math.atan(1/x);
+    }
+    function quadmn(a,b,c){
+        return -(b+pow(pow(b,2)-4*a*c,1/2))/(2*a)
+    }
+    function quadmx(a,b,c){
+        return -(b-pow(pow(b,2)-4*a*c,1/2))/(2*a)
+    }
+    function abs(x){
+        return Math.abs(x);
+    }
+    function ran(x,y){
+        return x+y*Math.random()
+    }
+    function cosh(x){
+        return Math.cosh(x);
+    }
+    function sinh(x){
+        return Math.sinh(x);
+    }
+    function tanh(x){
+        return Math.tanh(x);
+    }
+    function sech(x){
+        return 1/Math.cosh(x);
+    }
+    function csch(x){
+        return 1/Math.sinh(x);
+    }
+    function coth(x){
+        return 1/Math.tanh(x);
+    }
+    function acosh(x){
+        return Math.acosh(x);
+    }
+    function asinh(x){
+        return Math.asinh(x);
+    }
+    function atanh(x){
+        return Math.atanh(x);
+    }
+    function asech(x){
+        return Math.acosh(1/x);
+    }
+    function acsch(x){
+        return Math.asinh(1/x);
+    }
+    function acoth(x){
+        return Math.atanh(1/x);
+    }
+    function exp(x){
+        return Math.exp(x);
+    }
+    var h=1e7
+    function diff(a){
+        return h*(f(a+1/h)-f(a))
+    }
+    function integ(a,b){
+        var sum=0;
+        for(i=0;i<=h;i++){
+            sum+=f(a+i/h*(b-a))
         }
+        return sum
     }
-    function a10(){
-        if(cs>=50){
-            a=a+1;
-            if(dt<10){
-                dt=dt+1
-            }
-            a11.innerHTML="Tier 1 Producter - Adds $1 up to $10 Cost $50, used x"+a
-            cs=cs-50
-        }
-    }
-    function b10(){
-        if(cs>=1e3){
-            b=b+1;
-            if(dt<250){
-                dt=dt*1.2
-            }
-            b11.innerHTML="Tier 1 Looper - Product by 1.2 up to $250 Cost $1k, used x"+b
-            cs=cs-1e3
-        }
-    }
-    function c10(){
-        if(cs>=5e4){
-            c=c+1;
-            if(c<3){
-                dt=dt*3
-            }
-            c11.innerHTML="Tier 1 Upgrader - Product by 3 up to 3 times Cost $50k, used x"+c
-            cs=cs-5e4
-        }
-    }
-	var mode=1;
-		dt=1;
-		cs=1;
-		mode=0;
-	function pause(){
-		dt=0;
-	}
-	function end(){
-		dt=0;
-		mode=1;
-	}
-	function lap(){
-		if(dt>0){
-		score++;
-		pts.innerHTML="LAPS: "+score
-		}
-	}
-    (function (){
-		var cs=0;
-        var r=1;
-        timer=setInterval(()=>{
-            if(cs>0){
-            ele.innerHTML="CASH: "+strpow10(log10(cs))
-            }else{
-                ele.innerHTML="CASH: "+0
-            }
-            if(dt/2<1){
-                rate.innerHTML="RATE: "+0.5+"PS"
-            }else{
-                rate.innerHTML="RATE: "+strpow10(log10(r*dt/2))+"PS"
-            }
-				cs=cs+r*dt;
-        },2000)
-    })()
-    function log10(x){
-        return Math.log(x)/Math.log(10);
-    }
-    function strpow10(pow10){ 
-    var a=0;
-    var b=0;
-    var c=0;
-    var d=0;
-    var e=0;
-    var f=0;
-    var g=0;
-    var h=0;
-    var i=0;
-    if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==0){
-        a="";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==1){
-        if(Math.floor(pow10/3)>=10){
-        a="";
-        }else{
-        a="k";
-        }
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==2){
-        if(Math.floor(pow10/3)>=10){
-        a="U";
-        }else{
-        a="M";
-        }
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==3){
-        if(Math.floor(pow10/3)>=10){
-        a="D";
-        }else{
-        a="B";
-        }
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==4){
-        a="T";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==5){
-        a="Qd";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==6){
-        a="Qn";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==7){
-        a="Sx";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==8){
-        a="Sp";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==9){
-        a="Oc";
-    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==10){
-        a="No";
-    }
-    if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==0){
-        b=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==1){
-        b="De"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==2){
-        b="Vg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==3){
-        b="Tg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==4){
-        b="Qdg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==5){
-        b="Qng"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==6){
-        b="Sxg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==7){
-        b="Spg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==8){
-        b="Ocg"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==9){
-        b="Nog"
-    }
-    if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==0){
-        c=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==1){
-        c="Cn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==2){
-        c="Dcn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==3){
-        c="Tcn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==4){
-        c="Qdgn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==5){
-        c="Qngn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==6){
-        c="Sxgn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==7){
-        c="Spgn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==8){
-        c="Ocgn"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==9){
-        c="Nogn"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/1000))-10*Math.floor((pow10-3)/30000)==0){
-        d=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==1){
-        d="Mi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==2){
-        d="Dmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==3){
-        d="Tmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==4){
-        d="Qdmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==5){
-        d="Qnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==6){
-        d="Sxmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==7){
-        d="Spmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==8){
-        d="Ocmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==9){
-        d="Nomi"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/10000))-10*Math.floor((pow10-3)/300000)==0){
-        e=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==1){
-        e="Demi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==2){
-        e="Vgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==3){
-        e="Tgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==4){
-        e="Qdgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==5){
-        e="Qngmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==6){
-        e="Sxgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==7){
-        e="Spgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==8){
-        e="Ocgmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==9){
-        e="Nogmi"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/100000))-10*Math.floor((pow10-3)/3000000)==0){
-        f=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==1){
-        f="Cnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==2){
-        f="DCnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==3){
-        f="TCnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==4){
-        f="Qdgnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==5){
-        f="Qngnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==6){
-        f="Sxgnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==7){
-        f="Spgnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==8){
-        f="Ocgnmi"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==9){
-        f="Nognmi"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/1000000))-10*Math.floor((pow10-3)/30000000)==0){
-        g=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==1){
-        g="Mc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==2){
-        g="Dmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==3){
-        g="Tmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==4){
-        g="Qdmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==5){
-        g="Qnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==6){
-        g="Sxmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==7){
-        g="Spmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==8){
-        g="Ocmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==9){
-        g="Nomc"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/10000000))-10*Math.floor((pow10-3)/300000000)==0){
-        h=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==1){
-        h="Demc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==2){
-        h="Vgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==3){
-        h="Tgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==4){
-        h="Qdgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==5){
-        h="Qngmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==6){
-        h="Sxgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==7){
-        h="Spgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==8){
-        h="Ocgmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==9){
-        h="Nogmc"
-    }
-    if((Math.floor((Math.floor(pow10/3)-1)/100000000))-10*Math.floor((pow10-3)/3000000000)==0){
-        i=""
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==1){
-        i="Cnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==2){
-        i="Dcnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==3){
-        i="Tcnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==4){
-        i="Qdgnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==5){
-        i="Qngnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==6){
-        i="Sxgnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==7){
-        i="Spgnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==8){
-        i="Ocgnmc"
-    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==9){
-        i="Nognmc"
-    }
-    if(pow10<3){
-        return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100        
-    }else if(pow10<3000000003){
-    return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100+a+b+c+d+e+f+g+h+i
-    }else{
-    return "inf"
-    }
-}
-function epow10(pow10){
-    return Math.round(100*Math.pow(10,pow10-Math.floor(pow10)))/100+"e"+Math.floor(pow10)
-}
-console.log(strpow10(pow10)+" as string notation")
-console.log(epow10(pow10)+" as e notation")
 </script>
 <body>
-    
+    <div class="container" id="calcA">
+        <div class="calculator">
+            <form>
+                <div class="canvas">
+                    <canvas id="canvas" width="600px" height="600px"></canvas>
+                </div>
+                <div class="display">
+                    <h1 style="color:cyan;">Graphing Calculator dis(600x600)</h1>
+                    <h1 style="color:cyan;">input function that respect with x</h1>
+                    <input type="text" name="display">
+                </div>
+                <div class="calcbuttons">
+                    <div>
+                        <input type="button" value="AC"onclick="display.value=''">
+                        <input type="button" value="DE"onclick="display.value=display.value.toString().slice(0,-1)">
+                        <input type="button" value="1"onclick="display.value=display.value+'1'">
+                        <input type="button" value="+"onclick="display.value=display.value+'+'">
+                        <input type="button" value="-"onclick="display.value=display.value+'-'">
+                        <input type="button" value="2"onclick="display.value=display.value+'2'">
+                        <input type="button" value="3"onclick="display.value=display.value+'3'">
+                        <input type="button" value="4"onclick="display.value=display.value+'4'">
+                        <input type="button" value="*"onclick="display.value=display.value+'*'">
+                        <input type="button" value="/"onclick="display.value=display.value+'/'">
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <input type="button" value="5"onclick="display.value=display.value+'5'">
+                        <input type="button" value="6"onclick="display.value=display.value+'6'">
+                        <input type="button" value="7" onclick="display.value=display.value+'7'">
+                        <input type="button" value="^"onclick="display.value=display.value+'pow(a,n)'">
+                        <input type="button" value="log"onclick="display.value=display.value+'log(n,a)'">
+                        <input type="button" value="8"onclick="display.value=display.value+'8'">
+                        <input type="button" value="9"onclick="display.value=display.value+'9'">
+                        <input type="button" value="0"onclick="display.value=display.value+'0'">
+                        <input type="button" value="."onclick="display.value=display.value+'.'">
+                        <input type="button" value="GO!" onclick="var canvas=document.querySelector('canvas')
+                        var c=canvas.getContext('2d')
+                        var x=0;
+                        var y=0;
+                        var x1=eval(displayminx.value)
+                        var y1=eval(displayminy.value)
+                        var x2=eval(displaymaxx.value)
+                        var y2=eval(displaymaxy.value)
+                        var a=x1
+                        var b=x2
+                        for(i=0;i<=600;i++){
+                            x=x1+i*x2
+                            y=display.value
+                            c.fillRect(i,600+(y1-eval(y))/y2,1,1)
+                            c.fillRect(600,0,0,600)
+                        }">
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <input type="button" value="PI"onclick="display.value=display.value+'π'">
+                        <input type="button" value="E"onclick="display.value=display.value+'e'">
+                        <input type="button" value="ln"onclick="display.value=display.value+'ln(x)'">
+                        <input type="button" value=","onclick="display.value=display.value+','">
+                        <input type="button" value="cos" id="d1" onclick="display.value=display.value+'cos(x)'">
+                        <input type="button" value="sin" id="e1" onclick="display.value=display.value+'sin(x)'">
+                        <input type="button" value="tan" id="f1" onclick="display.value=display.value+'tan(x)'">
+                        <input type="button" value="sec" id="d1" onclick="display.value=display.value+'sec(x)'">
+                        <input type="button" value="csc" id="e1" onclick="display.value=display.value+'csc(x)'">
+                        <input type="button" value="cot" id="f1" onclick="display.value=display.value+'cot(x)'">
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <input type="button" value="acos" id="d1" onclick="display.value=display.value+'acos(x)'">
+                        <input type="button" value="asin" id="e1" onclick="display.value=display.value+'asin(x)'">
+                        <input type="button" value="atan" id="f1" onclick="display.value=display.value+'atan(x)'">
+                        <input type="button" value="asec" id="d1" onclick="display.value=display.value+'asec(x)'">
+                        <input type="button" value="acsc" id="e1" onclick="display.value=display.value+'acsc(x)'">
+                        <input type="button" value="acot" id="f1" onclick="display.value=display.value+'acot(x)'">
+                        <input type="button" value="cosh" id="d1" onclick="display.value=display.value+'cosh(x)'">
+                        <input type="button" value="sinh" id="e1" onclick="display.value=display.value+'sinh(x)'">
+                        <input type="button" value="tanh" id="f1" onclick="display.value=display.value+'tanh(x)'">
+                        <input type="button" value="sech" id="d1" onclick="display.value=display.value+'sech(x)'">
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <input type="button" value="csch" id="e1" onclick="display.value=display.value+'csch(x)'">
+                        <input type="button" value="coth" id="f1" onclick="display.value=display.value+'coth(x)'">
+                        <input type="button" value="acosh"onclick="display.value=display.value+'acosh(x)'">
+                        <input type="button" value="asinh"onclick="display.value=display.value+'asinh(x)'">
+                        <input type="button" value="atanh"onclick="display.value=display.value+'atanh(x)'">
+                        <input type="button" value="asech"onclick="display.value=display.value+'asech(x)'">
+                        <input type="button" value="acsch"onclick="display.value=display.value+'acsch(x)'">
+                        <input type="button" value="acoth"onclick="display.value=display.value+'acoth(x)'">
+                        <input type="button" value="(" id="d1" onclick="display.value=display.value+'()'">
+                        <input type="button" value=")" id="e1" onclick="display.value=display.value+')'">
+                    </div>
+                    <div>
+                        <input type="button" value="quad\/" id="f1" onclick="display.value=display.value+'quadmn(a,b,c)'">
+                        <input type="button" value="quad/\" onclick="display.value=display.value+'quadmx(a,b,c)'">
+                        <input type="button" value="!" onclick="display.value=display.value+'fact(x)'">
+                        <input type="button" value="random" onclick="display.value=display.value+'ran(x,y)'">
+                        <input type="button" value="abs" onclick="display.value=display.value+'abs(x)'">
+                        <input type="button" value="x" onclick="display.value=display.value+'x'">
+                        <input type="button" value="reset" onclick="window.location.reload()">
+                    </div>
+                    <div>
+                        <h1 style="color:cyan;">input values that starts from min (the starting value) and select scaling values to match the value on the screen</h1>
+                    </div>
+                    <input type="button" value="x - min" onclick="displayminx.value=eval(displayminx.value)">
+                    <input type="text" name="displayminx">
+                    <input type="button" value="y - min" onclick="displayminy.value=eval(displayminy.value)">
+                    <input type="text" name="displayminy">
+                    <input type="button" value="xscalor" onclick="displaymaxx.value=eval(displaymaxx.value)">
+                    <input type="text" name="displaymaxx">
+                    <input type="button" value="yscalor" onclick="displaymaxy.value=eval(displaymaxy.value)">
+                    <input type="text" name="displaymaxy">
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
