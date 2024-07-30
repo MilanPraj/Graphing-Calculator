@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="js_timer">
+    <button id="timer" style="background-color: lime; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        CASH: 0
+    </button>
+	<div>
+	</div>
+</div>
+<div>
+    <button id="rate"style="background-color: lime; font-family: Verdana, Geneva, Tahoma, sans-serif;">RATE: 0PS</button>
+</div>
+<div><button onclick="am1()" id="am" style="background-color: lime;">Producer Cost $10k, used x1</button></div>
+<h1>Tier 1</h1>
+<div><button onclick="a10()" id="a11" style="background-color: green; color: chocolate;">Tier 1 Producter - Adds $1 up to $10 Cost $50, used x0</button></div>
+<div><button onclick="b10()" id="b11" style="background-color: green; color: chocolate;">Tier 1 Looper - Product by 1.2 up to $250 Cost $1k, used x0</button></div>
+<div><button onclick="c10()" id="c11" style="background-color: green; color: chocolate;">Tier 1 Upgrader - Product by 3 up to 3 times Cost $50k, used x0</button></div>
+<script>
+    var timer;
+    var ele=document.getElementById('timer');
+	var score=0;
+	var dt=0;
+    var a=0;
+    var b=0;
+    var c=0;
+    function am1(){
+        if(cs>=1e2*Math.pow(100,r)){
+            r=r+1;
+        am.innerHTML="Producer Cost $"+pow10(2*r+2)+", used x"+r
+        cs=cs-1e2*Math.pow(100,r)
+        }
+    }
+    function a10(){
+        if(cs>=50){
+            a=a+1;
+            if(dt<10){
+                dt=dt+1
+            }
+            a11.innerHTML="Tier 1 Producter - Adds $1 up to $10 Cost $50, used x"+a
+            cs=cs-50
+        }
+    }
+    function b10(){
+        if(cs>=1e3){
+            b=b+1;
+            if(dt<250){
+                dt=dt*1.2
+            }
+            b11.innerHTML="Tier 1 Looper - Product by 1.2 up to $250 Cost $1k, used x"+b
+            cs=cs-1e3
+        }
+    }
+    function c10(){
+        if(cs>=5e4){
+            c=c+1;
+            if(c<3){
+                dt=dt*3
+            }
+            c11.innerHTML="Tier 1 Upgrader - Product by 3 up to 3 times Cost $50k, used x"+c
+            cs=cs-5e4
+        }
+    }
+	var mode=1;
+		dt=1;
+		cs=1;
+		mode=0;
+	function pause(){
+		dt=0;
+	}
+	function end(){
+		dt=0;
+		mode=1;
+	}
+	function lap(){
+		if(dt>0){
+		score++;
+		pts.innerHTML="LAPS: "+score
+		}
+	}
+    (function (){
+		var cs=0;
+        var r=1;
+        timer=setInterval(()=>{
+            if(cs>0){
+            ele.innerHTML="CASH: "+strpow10(log10(cs))
+            }else{
+                ele.innerHTML="CASH: "+0
+            }
+            if(dt/2<1){
+                rate.innerHTML="RATE: "+0.5+"PS"
+            }else{
+                rate.innerHTML="RATE: "+strpow10(log10(r*dt/2))+"PS"
+            }
+				cs=cs+r*dt;
+        },2000)
+    })()
+    function log10(x){
+        return Math.log(x)/Math.log(10);
+    }
+    function strpow10(pow10){ 
+    var a=0;
+    var b=0;
+    var c=0;
+    var d=0;
+    var e=0;
+    var f=0;
+    var g=0;
+    var h=0;
+    var i=0;
+    if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==0){
+        a="";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==1){
+        if(Math.floor(pow10/3)>=10){
+        a="";
+        }else{
+        a="k";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==2){
+        if(Math.floor(pow10/3)>=10){
+        a="U";
+        }else{
+        a="M";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==3){
+        if(Math.floor(pow10/3)>=10){
+        a="D";
+        }else{
+        a="B";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==4){
+        a="T";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==5){
+        a="Qd";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==6){
+        a="Qn";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==7){
+        a="Sx";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==8){
+        a="Sp";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==9){
+        a="Oc";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==10){
+        a="No";
+    }
+    if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==0){
+        b=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==1){
+        b="De"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==2){
+        b="Vg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==3){
+        b="Tg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==4){
+        b="Qdg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==5){
+        b="Qng"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==6){
+        b="Sxg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==7){
+        b="Spg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==8){
+        b="Ocg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==9){
+        b="Nog"
+    }
+    if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==0){
+        c=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==1){
+        c="Cn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==2){
+        c="Dcn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==3){
+        c="Tcn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==4){
+        c="Qdgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==5){
+        c="Qngn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==6){
+        c="Sxgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==7){
+        c="Spgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==8){
+        c="Ocgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==9){
+        c="Nogn"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/1000))-10*Math.floor((pow10-3)/30000)==0){
+        d=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==1){
+        d="Mi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==2){
+        d="Dmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==3){
+        d="Tmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==4){
+        d="Qdmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==5){
+        d="Qnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==6){
+        d="Sxmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==7){
+        d="Spmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==8){
+        d="Ocmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==9){
+        d="Nomi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/10000))-10*Math.floor((pow10-3)/300000)==0){
+        e=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==1){
+        e="Demi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==2){
+        e="Vgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==3){
+        e="Tgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==4){
+        e="Qdgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==5){
+        e="Qngmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==6){
+        e="Sxgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==7){
+        e="Spgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==8){
+        e="Ocgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==9){
+        e="Nogmi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/100000))-10*Math.floor((pow10-3)/3000000)==0){
+        f=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==1){
+        f="Cnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==2){
+        f="DCnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==3){
+        f="TCnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==4){
+        f="Qdgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==5){
+        f="Qngnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==6){
+        f="Sxgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==7){
+        f="Spgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==8){
+        f="Ocgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==9){
+        f="Nognmi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/1000000))-10*Math.floor((pow10-3)/30000000)==0){
+        g=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==1){
+        g="Mc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==2){
+        g="Dmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==3){
+        g="Tmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==4){
+        g="Qdmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==5){
+        g="Qnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==6){
+        g="Sxmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==7){
+        g="Spmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==8){
+        g="Ocmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==9){
+        g="Nomc"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/10000000))-10*Math.floor((pow10-3)/300000000)==0){
+        h=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==1){
+        h="Demc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==2){
+        h="Vgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==3){
+        h="Tgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==4){
+        h="Qdgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==5){
+        h="Qngmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==6){
+        h="Sxgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==7){
+        h="Spgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==8){
+        h="Ocgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==9){
+        h="Nogmc"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/100000000))-10*Math.floor((pow10-3)/3000000000)==0){
+        i=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==1){
+        i="Cnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==2){
+        i="Dcnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==3){
+        i="Tcnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==4){
+        i="Qdgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==5){
+        i="Qngnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==6){
+        i="Sxgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==7){
+        i="Spgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==8){
+        i="Ocgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==9){
+        i="Nognmc"
+    }
+    if(pow10<3){
+        return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100        
+    }else if(pow10<3000000003){
+    return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100+a+b+c+d+e+f+g+h+i
+    }else{
+    return "inf"
+    }
+}
+function epow10(pow10){
+    return Math.round(100*Math.pow(10,pow10-Math.floor(pow10)))/100+"e"+Math.floor(pow10)
+}
+console.log(strpow10(pow10)+" as string notation")
+console.log(epow10(pow10)+" as e notation")
+</script>
+<body>
+    
+</body>
+</html>
